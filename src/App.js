@@ -32,12 +32,20 @@ export const App = () => {
   }
 
   return (
-    <Theme.Provider value={{ theme, setTheme, cartItems, setCartItems, productList, setProductList }}>
+    <Theme.Provider value={{ theme, setTheme }}>
       <div className="wrapper">
         <Header />
         <main>
-          <Product handleSearch={handleSearch} />
-          <Cart />
+          <Product
+            productList={productList}
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+            handleSearch={handleSearch} 
+          />
+          <Cart 
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+          />
         </main>
       </div>
     </Theme.Provider>

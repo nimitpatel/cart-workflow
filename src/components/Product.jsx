@@ -1,49 +1,36 @@
-import { useContext, useEffect, useState } from "react"
-import Theme from "../contexts"
+import { useState } from "react"
 import { Search } from "./common"
 import { Button } from "./common/Button"
+import { Items } from "./common/Items"
 
-export const Product = ({ handleSearch }) => {
-    const [search, setSearch] = useState('') 
+export const Product = ({ handleSearch, productList, cartItems, setCartItems }) => {
+    const [search, setSearch] = useState('')
     const [cart, setCart] = useState([])
 
-    const { productList, cartItems, setCartItems } = useContext(Theme) 
-    
-    useEffect(() => {
-        setCart(cartItems)
-    }, [])
-
     const handleCheckbox = target => {
-        if (target.checked) { 
+        if (target.checked) {
             setCart(item => [...item, target.value])
         }
     }
-    
+
     return (
         <div className="left">
-            <Search setSearch={setSearch} onClick={() => handleSearch(search)} />
+            <Search search={search} setSearch={setSearch} onClick={() => handleSearch(search)} />
             <div className="items">
                 {
                     productList.map((item, idx) => (
                         <div className="item" key={idx}>
-                            <input 
-                                type="checkbox" 
-                                name={item} 
-                                id={item} 
-                                value={item}
-                                onChange={({ target }) => handleCheckbox(target)}
-                            />
-                            <label htmlFor={item}>{item}</label>
+                            <Items item={item} checked={cart} onChange={handleCheckbox} isCheckbox />
                         </div>
                     ))
                 }
             </div>
-            <Button 
-                label="Add to Cart" 
+            <Button
+                label="Add to Cart"
                 onClick={() => {
-                    setCartItems(cart) 
-                    //setCart(cartItems)
-                }} 
+                    setCartItems([...cartItems, cart].flat())
+                    setCart([])
+                }}
             />
         </div>
     )

@@ -89,7 +89,8 @@ main .left, .right {
 .right .cart-info {
   display: flex;
   justify-content: space-between;
-  margin: 8px;
+  border: 1px solid black;
+  padding: 8px;
 }
 
 .cart-info h3 {

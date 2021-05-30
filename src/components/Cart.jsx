@@ -1,23 +1,26 @@
-import { useContext } from "react"
-import Theme from "../contexts"
+import { useEffect, useState } from "react"
 import { Button } from "./common/Button"
+import { Items } from "./common/Items"
 
-export const Cart = _ => {
-    const { cartItems, setCartItems } = useContext(Theme) 
+export const Cart = ({ cartItems, setCartItems }) => {
+    const [cart, setCart] = useState([])
+
+    useEffect(() => {
+        setCart(cartItems)
+    }, [cartItems])
 
     return (
         <div className="right">
             <div className="cart-info">
                 <h3><b>Cart</b></h3>
-                <h3><b>{cartItems.length} items</b></h3>
+                <h3><b>{cart.length} items</b></h3>
             </div>
             <div className="items">
                 {
-                    cartItems?.length > 0 ? (
-                        cartItems.map((item) => (
-                            <div className="item" key={item}>
-                                <p>{item}</p>
-                                <p>Delete</p>
+                    cart?.length > 0 ? (
+                        cart.map((item, idx) => (
+                            <div className="item" key={idx}>
+                                <Items item={item} />
                             </div>
                         ))
                     ) : (
