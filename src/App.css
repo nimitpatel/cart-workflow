@@ -1,38 +1,106 @@
-.App {
-  text-align: center;
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button {
+  width: 100%;
+  padding: 8px 16px;
+  border: 0;
+  color: white;
+  bottom: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button.red {
+  background: #ff0000;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button.blue {
+  background: #0000ff;
+}
+
+input {
+  width: 100%;
+  padding: 6px;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 8px 0;
+}
+
+header .radio {
+  width: 10%;
+  display: flex;
+}
+
+.wrapper {
+  padding: 48px;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border: 1px solid black;
+}
+
+main .left, .right {
+  height: 100%;
+  min-height: calc(95vh - 95px);
+  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: 1px solid black;
+  overflow: auto;
 }
 
-.App-link {
-  color: #61dafb;
+.left .search {
+  width: 100%;
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search input {
+  width: 150%;
+}
+
+.items {
+  flex: auto;
+}
+
+.left .item, .right .item {
+  display: flex;
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.item input {
+  width: max-content;
+}
+
+.item label {
+  padding: 0 16px;
+}
+
+.right .cart-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px;
+}
+
+.cart-info h3 {
+  margin: 0;
+}
+
+.right .item p {
+  margin: 0;
+}
+
+.items .empty {
+  text-align: center;
+  margin: auto;
 }

@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react"
+import Theme from "./contexts"
 
-function App() {
+import { Header } from './components/common'
+import { Product } from "./components/Product"
+import { Cart } from "./components/Cart"
+
+import './App.css'
+
+import './api'
+
+export const App = () => {
+  const [theme, setTheme] = useState('red')
+  const [cartItems, setCartItems] = useState([])
+  const [productList, setProductList] = useState([])
+  const [refetch, setRefetch] = useState(false)
+
+  useEffect(() => {
+    fetch('api/list')
+      .then(res => res.json())
+      .then(({ list }) => setProductList(list))
+  }, [refetch])
+
+  const handleSearch = search => {
+    if (search.length === 0) {
+      setRefetch(!refetch)
+    } else {
+      const idx = productList.indexOf(search)
+
+      setProductList([productList[idx]])
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Theme.Provider value={{ theme, setTheme, cartItems, setCartItems, productList, setProductList }}>
+      <div className="wrapper">
+        <Header />
+        <main>
+          <Product handleSearch={handleSearch} />
+          <Cart />
+        </main>
+      </div>
+    </Theme.Provider>
+  )
 }
 
-export default App;
+export default App
